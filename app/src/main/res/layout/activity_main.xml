@@ -61,7 +61,7 @@
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.466"
         app:layout_constraintStart_toStartOf="parent"
-        tools:text="Check this if heavy jumps are on your trail" />
+        tools:text="Check this if your trail contains heavy jumps" />
 
     <TextView
         android:id="@+id/textView"
