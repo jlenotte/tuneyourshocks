@@ -93,6 +93,7 @@ public class MainActivity extends AppCompatActivity {
 
         int nearestWeight;
 
+        // Round to the nearest upper tenth for easy matching with the chart.
         if (weight % 10 == 0) {
             nearestWeight = weight;
         } else {
@@ -103,6 +104,7 @@ public class MainActivity extends AppCompatActivity {
         String msg = "";
 
 
+        // Loop the chart and check for matching keys, and return associated value
         for (Integer entry : chart.keySet()) {
             if (chart.containsKey(nearestWeight)) {
                 msg = chart.get(nearestWeight) + " PSI is the recommended air pressure for your weight.";
