@@ -1,0 +1,5 @@
+<resources>
+    <string name="app_name">TuneYourShocks</string>
+    <string name="radio_dh">DH / Rocky</string>
+    <string name="radio_jumps">Jumps</string>
+</resources>
