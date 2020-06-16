@@ -78,15 +78,15 @@
         android:id="@+id/weightText"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginBottom="20dp"
+        android:layout_marginBottom="16dp"
         android:layout_marginEnd="150dp"
         android:layout_marginLeft="150dp"
         android:layout_marginRight="150dp"
         android:layout_marginStart="150dp"
-        android:text="Enter your weight"
+        android:text="Enter your weight in KG :"
         app:layout_constraintBottom_toTopOf="@+id/weightGetter"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.0"
+        app:layout_constraintHorizontal_bias="0.511"
         app:layout_constraintStart_toStartOf="parent" />
 
     <TextView
