@@ -2,6 +2,8 @@ package com.cnam.tuneyourshocks;
 
 import androidx.appcompat.app.AppCompatActivity;
 
+import android.database.Cursor;
+import android.database.sqlite.SQLiteDatabase;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
@@ -23,6 +25,39 @@ public class MainActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
+
+        // SQLite management.
+        try {
+
+            // Init the SQLite
+            SQLiteDatabase profileDb = this.openOrCreateDatabase("Profiles", MODE_PRIVATE, null);
+
+            profileDb.execSQL("CREATE TABLE IF NOT EXISTS profiles (profileName VARCHAR, airPressure INT(3))");
+            profileDb.execSQL("INSERT INTO Profiles (profileName, airPressure) VALUES ('piste bleue', 175)");
+            profileDb.execSQL("INSERT INTO profiles (profileName, airPressure) VALUES ('piste noire', 195)");
+
+            Cursor c = profileDb.rawQuery("SELECT * FROM profiles", null);
+
+            // Access columns
+            int nameIndex = c.getColumnIndex("profileName");
+            int airPressureIndex = c.getColumnIndex("airPressure");
+
+            c.moveToFirst();
+
+            while (c != null) {
+
+                Log.i("profileName", c.getString(nameIndex));
+                Log.i("airPressure", Integer.toString(c.getInt(airPressureIndex)));
+
+                c.moveToNext();
+
+            }
+
+        }
+        catch (Exception e) {
+            e.printStackTrace();
+        }
+
 
     }
 
