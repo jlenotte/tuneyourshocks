@@ -2,11 +2,13 @@ package com.cnam.tuneyourshocks;
 
 import androidx.appcompat.app.AppCompatActivity;
 
+import android.content.Intent;
 import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
+import android.widget.Button;
 import android.widget.EditText;
 import android.widget.RadioButton;
 import android.widget.RadioGroup;
@@ -19,12 +21,24 @@ public class MainActivity extends AppCompatActivity {
     private TextView resultViewer;
     private String result = "";
     private RadioButton jumpButton;
-
+    private Button saveBtn;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
+
+
+        // Activity switching
+        saveBtn = (Button) findViewById(R.id.saveButton);
+        saveBtn.setOnClickListener(new View.OnClickListener() {
+
+            @Override
+            public void onClick(View v) {
+                startActivity(new Intent(MainActivity.this, ProfileSavingActivity.class));
+            }
+        });
+
 
         // SQLite management.
         try {
@@ -32,6 +46,7 @@ public class MainActivity extends AppCompatActivity {
             // Init the SQLite
             SQLiteDatabase profileDb = this.openOrCreateDatabase("Profiles", MODE_PRIVATE, null);
 
+            // todo : add conditionnal queries upon Button pressing and TextView filling.
             profileDb.execSQL("CREATE TABLE IF NOT EXISTS profiles (profileName VARCHAR, airPressure INT(3))");
             profileDb.execSQL("INSERT INTO Profiles (profileName, airPressure) VALUES ('piste bleue', 175)");
             profileDb.execSQL("INSERT INTO profiles (profileName, airPressure) VALUES ('piste noire', 195)");
@@ -53,8 +68,7 @@ public class MainActivity extends AppCompatActivity {
 
             }
 
-        }
-        catch (Exception e) {
+        } catch (Exception e) {
             e.printStackTrace();
         }
 
@@ -116,13 +130,13 @@ public class MainActivity extends AppCompatActivity {
         if (jumpButton.isChecked()) {
             weight = weight + 20;
         } else {
-            weight = weight -5;
+            weight = weight - 5;
         }
 
 
         // Remove odd numbers tor espect the chart values.
-        if ( weight % 2 != 0 ) {
-            weight = weight +1;
+        if (weight % 2 != 0) {
+            weight = weight + 1;
         }
 
 
@@ -132,7 +146,7 @@ public class MainActivity extends AppCompatActivity {
         if (weight % 10 == 0) {
             nearestWeight = weight;
         } else {
-            nearestWeight = (int) (Math.round((weight+5)/10.0) * 10);
+            nearestWeight = (int) (Math.round((weight + 5) / 10.0) * 10);
         }
 
 
@@ -146,15 +160,13 @@ public class MainActivity extends AppCompatActivity {
                 Log.i("NEAREST WEIGHT : ", String.valueOf(nearestWeight));
                 Log.i("MATCH FOUND FOR : ", String.valueOf(nearestWeight));
                 Log.i("KEY VALUE : ", String.valueOf(entry));
-            }
-            else {
+            } else {
                 msg = "No settings found for the given weight";
                 Log.i("NEAREST WEIGHT : ", String.valueOf(nearestWeight));
                 Log.i("NO MATCH FOR : ", String.valueOf(nearestWeight));
                 Log.i("KEY VALUE : ", String.valueOf(entry));
             }
         }
-
 
 
         return msg;
