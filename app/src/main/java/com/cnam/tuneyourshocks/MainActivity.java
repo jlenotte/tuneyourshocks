@@ -36,6 +36,7 @@ public class MainActivity extends AppCompatActivity {
             @Override
             public void onClick(View v) {
                 startActivity(new Intent(MainActivity.this, ProfileSavingActivity.class));
+
             }
         });
 
@@ -47,11 +48,11 @@ public class MainActivity extends AppCompatActivity {
             SQLiteDatabase profileDb = this.openOrCreateDatabase("Profiles", MODE_PRIVATE, null);
 
             // todo : add conditionnal queries upon Button pressing and TextView filling.
-            profileDb.execSQL("CREATE TABLE IF NOT EXISTS profiles (profileName VARCHAR, airPressure INT(3))");
+            profileDb.execSQL("CREATE TABLE IF NOT EXISTS Profiles (profileName VARCHAR, airPressure INT(3))");
             profileDb.execSQL("INSERT INTO Profiles (profileName, airPressure) VALUES ('piste bleue', 175)");
-            profileDb.execSQL("INSERT INTO profiles (profileName, airPressure) VALUES ('piste noire', 195)");
+            profileDb.execSQL("INSERT INTO Profiles (profileName, airPressure) VALUES ('piste noire', 195)");
 
-            Cursor c = profileDb.rawQuery("SELECT * FROM profiles", null);
+            Cursor c = profileDb.rawQuery("SELECT * FROM Profiles", null);
 
             // Access columns
             int nameIndex = c.getColumnIndex("profileName");
@@ -67,6 +68,8 @@ public class MainActivity extends AppCompatActivity {
                 c.moveToNext();
 
             }
+
+
 
         } catch (Exception e) {
             e.printStackTrace();
